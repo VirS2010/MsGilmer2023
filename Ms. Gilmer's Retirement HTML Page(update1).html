@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Ms. Gilmer's Retirement Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            color: #555;
+        }
+        
+        h2 {
+            font-size: 24px;
+            color: #555;
+            margin-top: 40px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .review {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        #ratingSlider {
+            width: 100%;
+        }
+        
+        #maxRating {
+            font-size: 24px;
+            text-align: center;
+            margin-top: -15px;
+            color: #555;
+        }
+        
+        #reviewList {
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        
+        #madeBy {
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="font-family: 'Brush Script MT', cursive; font-size: 50px;">Celebrando un año fantástico con la Señorita Gilmer!</h1>
+    
+    <h2 style="font-family: 'Georgia', serif;">Agrega tus pensamientos sobre la Señorita Gilmer:</h2>
+    <textarea id="reviewInput" rows="4" cols="50"></textarea>
+    <button onclick="addReview()" style="background-color: #009688;">Agregar</button>
+    
+    <h2 style="font-family: 'Georgia', serif;">Resumen de opiniones:</h2>
+    <div id="reviewList"></div>
+    <p style="font-size: 18px; font-weight: bold; color: #555;">Calificación media: <span id="medianRating" style="color: #009688;"></span> / 5 (basado en <span id="reviewCount" style="color: #009688;"></span> opiniones)</p>
+    
+    <h2 style="font-family: 'Georgia', serif;">Califica tu experiencia con la Señorita Gilmer:</h2>
+    <div>
+        <p style="text-align: center; font-size: 18px; color: #555;">Número de calificaciones: <span id="numRatings" style="color: #009688;">0</span></p>
+        <input type="range" min="1" max="5" value="5" id="ratingSlider" style="
+width: 50%;">
+<p id="maxRating" style="font-size: 24px; text-align: center; margin-top: -15px; color: #555;">5</p>
+<button onclick="submitRating()" style="background-color: #009688; color: #fff; margin-top: 10px;">Enviar calificación</button>
+</div>
+<h3 style="font-family: 'Georgia', serif;">¡Gracias por 2 años fabulosos!</h3>
+
+
+<p id="madeBy">Hecho por: Vir Sanghavi</p>
+
+
+<script>
+    let reviews = [];
+    let ratings = [];
+    
+    function addReview() {
+        const reviewInput = document.getElementById("reviewInput");
+        const review = reviewInput.value;
+        
+        if (review !== "") {
+            reviews.push(review);
+            displayReviews();
+            reviewInput.value = "";
+        }
+    }
+    
+    function displayReviews() {
+        const reviewList = document.getElementById("reviewList");
+        reviewList.innerHTML = "";
+        
+        reviews.forEach(function(review) {
+            const reviewElement = document.createElement("p");
+            reviewElement.textContent = review;
+            reviewElement.classList.add("review");
+            reviewList.appendChild(reviewElement);
+        });
+        
+        updateReviewStats();
+    }
+    
+    function updateReviewStats() {
+        const medianRating = document.getElementById("medianRating");
+        const reviewCount = document.getElementById("reviewCount");
+        
+        const ratingsCount = ratings.length;
+        const averageRating = ratingsCount > 0 ? (ratings.reduce((a, b) => a + b, 0) / ratingsCount).toFixed(2) : 0;
+        
+        medianRating.textContent = averageRating;
+        reviewCount.textContent = ratingsCount;
+    }
+    
+    function submitRating() {
+        const ratingSlider = document.getElementById("ratingSlider");
+        const rating = parseInt(ratingSlider.value);
+        
+        ratings.push(rating);
+        updateReviewStats();
+        
+        const numRatings = document.getElementById("numRatings");
+        numRatings.textContent = ratings.length;
+    }
+</script>
+</body>
+</html>
+```
